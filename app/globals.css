@@ -1,26 +1,151 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* <CHANGE> Return Policy brand color system */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand Primary Colors */
+  --rp-black: #000000;
+  --rp-ivory: #fffff0;
+  --rp-yellow: #fef380;
+  --rp-blue: #4097db;
+
+  /* Brand Secondary Colors */
+  --rp-green: #035f1d;
+  --rp-mint: #c3f1cf;
+  --rp-vermilion: #e45b50;
+  --rp-sky: #b9d9eb;
+
+  /* Design tokens using brand colors */
+  --background: var(--rp-ivory);
+  --foreground: var(--rp-black);
+  --card: var(--rp-ivory);
+  --card-foreground: var(--rp-black);
+  --popover: var(--rp-ivory);
+  --popover-foreground: var(--rp-black);
+  --primary: var(--rp-black);
+  --primary-foreground: var(--rp-ivory);
+  --secondary: var(--rp-blue);
+  --secondary-foreground: var(--rp-ivory);
+  --muted: var(--rp-sky);
+  --muted-foreground: var(--rp-black);
+  --accent: var(--rp-yellow);
+  --accent-foreground: var(--rp-black);
+  --destructive: var(--rp-vermilion);
+  --destructive-foreground: var(--rp-ivory);
+  --border: var(--rp-black);
+  --input: var(--rp-black);
+  --ring: var(--rp-blue);
+  --chart-1: var(--rp-blue);
+  --chart-2: var(--rp-green);
+  --chart-3: var(--rp-yellow);
+  --chart-4: var(--rp-vermilion);
+  --chart-5: var(--rp-mint);
+  --radius: 0rem;
+  --sidebar: var(--rp-ivory);
+  --sidebar-foreground: var(--rp-black);
+  --sidebar-primary: var(--rp-black);
+  --sidebar-primary-foreground: var(--rp-ivory);
+  --sidebar-accent: var(--rp-yellow);
+  --sidebar-accent-foreground: var(--rp-black);
+  --sidebar-border: var(--rp-black);
+  --sidebar-ring: var(--rp-blue);
+}
+
+.dark {
+  --background: var(--rp-black);
+  --foreground: var(--rp-ivory);
+  --card: var(--rp-black);
+  --card-foreground: var(--rp-ivory);
+  --popover: var(--rp-black);
+  --popover-foreground: var(--rp-ivory);
+  --primary: var(--rp-ivory);
+  --primary-foreground: var(--rp-black);
+  --secondary: var(--rp-blue);
+  --secondary-foreground: var(--rp-ivory);
+  --muted: #1a1a1a;
+  --muted-foreground: var(--rp-sky);
+  --accent: var(--rp-yellow);
+  --accent-foreground: var(--rp-black);
+  --destructive: var(--rp-vermilion);
+  --destructive-foreground: var(--rp-ivory);
+  --border: var(--rp-ivory);
+  --input: var(--rp-ivory);
+  --ring: var(--rp-blue);
+  --chart-1: var(--rp-blue);
+  --chart-2: var(--rp-mint);
+  --chart-3: var(--rp-yellow);
+  --chart-4: var(--rp-vermilion);
+  --chart-5: var(--rp-green);
+  --sidebar: var(--rp-black);
+  --sidebar-foreground: var(--rp-ivory);
+  --sidebar-primary: var(--rp-yellow);
+  --sidebar-primary-foreground: var(--rp-black);
+  --sidebar-accent: var(--rp-blue);
+  --sidebar-accent-foreground: var(--rp-ivory);
+  --sidebar-border: var(--rp-ivory);
+  --sidebar-ring: var(--rp-blue);
 }
 
 @theme inline {
+  /* <CHANGE> Configure Inter font with brand specifications */
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+
+  /* <CHANGE> Brand color tokens */
+  --color-rp-black: var(--rp-black);
+  --color-rp-ivory: var(--rp-ivory);
+  --color-rp-yellow: var(--rp-yellow);
+  --color-rp-blue: var(--rp-blue);
+  --color-rp-green: var(--rp-green);
+  --color-rp-mint: var(--rp-mint);
+  --color-rp-vermilion: var(--rp-vermilion);
+  --color-rp-sky: var(--rp-sky);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
 }
