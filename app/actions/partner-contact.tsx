@@ -13,14 +13,31 @@ export async function submitPartnerContact(data: {
     const { name, email, phone } = data;
 
     await resend.emails.send({
-      from: "Return Policy <onboarding@resend.dev>",
+      from: "Return Policy <noreply@returnpolicystays.com>",
       to: "partner@returnpolicystays.com",
-      subject: "New Partner Contact Form Submission",
+      replyTo: email,
+      subject: `Partner Inquiry from ${name}`,
       html: `
-        <h2>New Partner Contact</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f5f5; padding: 40px 20px;">
+          <div style="max-width: 500px; margin: 0 auto; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 32px;">
+            <h2 style="margin: 0 0 24px 0; font-size: 20px; font-weight: 600; color: #1a1a1a;">New Partner Inquiry</h2>
+
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 4px;">Name</div>
+              <div style="font-size: 16px; color: #1a1a1a;">${name}</div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 4px;">Email</div>
+              <div style="font-size: 16px;"><a href="mailto:${email}" style="color: #1a1a1a;">${email}</a></div>
+            </div>
+
+            <div style="margin-bottom: 0;">
+              <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 4px;">Phone</div>
+              <div style="font-size: 16px;"><a href="tel:${phone}" style="color: #1a1a1a;">${phone}</a></div>
+            </div>
+          </div>
+        </div>
       `,
     });
 
