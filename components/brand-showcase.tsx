@@ -1,10 +1,19 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 
 export function BrandShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const videoRef = useCallback((video: HTMLVideoElement | null) => {
+    if (video) {
+      video.muted = true;
+      video.play().catch(() => {
+        // Autoplay prevented - requires user interaction
+      });
+    }
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -30,6 +39,7 @@ export function BrandShowcase() {
             loop
             muted
             playsInline
+            ref={videoRef}
             src="/brand-showcase.mp4"
           />
           <div className="pointer-events-none absolute inset-0 z-20 bg-black/10" />
