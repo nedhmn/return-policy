@@ -1,18 +1,20 @@
 import type React from "react"
 import type { Metadata } from "next"
-// <CHANGE> Replace Geist fonts with Inter for Return Policy brand
+// Replace Geist fonts with Inter for Return Policy brand
 import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import SmoothScroll from "@/components/smooth-scroll"
+import { PageTransition } from "@/components/page-transition"
 import "./globals.css"
 
-// <CHANGE> Configure Inter font with brand specifications
+// Configure Inter font with brand specifications
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 })
 
 export const metadata: Metadata = {
-  // <CHANGE> Update metadata for Return Policy
+  // Update metadata for Return Policy
   title: "Return Policy | Short-Term Stays",
   description:
     "Every departure, just another beginning. Short-term stays designed to feel less like rentals and more like residences.",
@@ -43,9 +45,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <CHANGE> Apply Inter font variable */}
       <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
+        <SmoothScroll>
+          <PageTransition>{children}</PageTransition>
+        </SmoothScroll>
         <Analytics />
       </body>
     </html>

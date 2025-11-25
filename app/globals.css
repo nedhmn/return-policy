@@ -3,7 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* <CHANGE> Return Policy brand color system */
+/* Return Policy brand color system */
 :root {
   /* Brand Primary Colors */
   --rp-black: #000000;
@@ -89,11 +89,11 @@
 }
 
 @theme inline {
-  /* <CHANGE> Configure Inter font with brand specifications */
+  /* Configure Inter font with brand specifications */
   --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback";
 
-  /* <CHANGE> Brand color tokens */
+  /* Brand color tokens */
   --color-rp-black: var(--rp-black);
   --color-rp-ivory: var(--rp-ivory);
   --color-rp-yellow: var(--rp-yellow);
@@ -141,6 +141,32 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Added marquee animation for background pattern */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  /* Slowed down animation to 120s */
+  animation: marquee 129s linear infinite;
+}
+
+/* Reverse marquee direction */
+.animate-marquee-reverse {
+  /* Slowed down animation to 120s */
+  animation: marquee 120s linear infinite reverse;
+}
+
+/* Renamed to turbo and increased speed significantly to 8s */
+.animate-marquee-turbo {
+  animation: marquee 16s linear infinite;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -148,4 +174,26 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Lenis smooth scroll required styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
