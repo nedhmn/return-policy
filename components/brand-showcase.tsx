@@ -7,11 +7,21 @@ export function BrandShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const videoRef = useCallback((video: HTMLVideoElement | null) => {
-    if (video) {
+    if (!video) {
+      return;
+    }
+
+    const playVideo = () => {
       video.muted = true;
       video.play().catch(() => {
         // Autoplay prevented - requires user interaction
       });
+    };
+
+    if (video.readyState >= 3) {
+      playVideo();
+    } else {
+      video.addEventListener("canplay", playVideo, { once: true });
     }
   }, []);
 
@@ -39,6 +49,7 @@ export function BrandShowcase() {
             loop
             muted
             playsInline
+            preload="auto"
             ref={videoRef}
             src="/brand-showcase.mp4"
           />
