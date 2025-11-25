@@ -60,8 +60,8 @@ export const siteConfig: SiteConfig = {
   },
 
   socials: {
-    instagram: "https://instagram.com/returnpolicy",
-    facebook: "https://facebook.com/returnpolicy",
+    instagram: "https://www.instagram.com/returnpolicystays",
+    facebook: "https://facebook.com/return-policy",
     linkedin: "https://linkedin.com/company/return-policy",
   },
 
