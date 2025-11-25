@@ -21,7 +21,7 @@ export type SiteConfig = {
 
   socials: {
     instagram: string;
-    twitter: string;
+    facebook: string;
     linkedin: string;
   };
 
@@ -61,8 +61,8 @@ export const siteConfig: SiteConfig = {
 
   socials: {
     instagram: "https://instagram.com/returnpolicy",
-    twitter: "https://twitter.com/returnpolicy",
-    linkedin: "https://linkedin.com/company/returnpolicy",
+    facebook: "https://facebook.com/returnpolicy",
+    linkedin: "https://linkedin.com/company/return-policy",
   },
 
   email: {

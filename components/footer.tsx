@@ -104,11 +104,11 @@ export function Footer() {
             </a>
             <a
               className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
-              href={siteConfig.socials.twitter}
+              href={siteConfig.socials.facebook}
               rel="noopener noreferrer"
               target="_blank"
             >
-              Twitter
+              Facebook
             </a>
             <a
               className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
