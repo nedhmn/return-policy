@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: siteConfig.title,
   description: siteConfig.description,
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
