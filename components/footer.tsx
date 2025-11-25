@@ -21,7 +21,7 @@ export function Footer() {
             <br />
             Sooner.
           </h2>
-          <div className="w-32 flex-shrink-0 lg:w-40">
+          <div className="w-32 shrink-0 lg:w-40">
             <Image
               alt="Return Policy Logo"
               className="h-auto w-full"
@@ -59,7 +59,7 @@ export function Footer() {
               {siteConfig.contact.phone}
             </a>
             <div className="flex items-start gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em]">
-              <MapPin className="h-5 w-5 flex-shrink-0" />
+              <MapPin className="h-5 w-5 shrink-0" />
               <span>
                 {siteConfig.contact.address.street},
                 <br />
