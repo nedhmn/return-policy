@@ -22,7 +22,7 @@ function AnimatedCounter({
     if (value % 1 !== 0) {
       return latest.toFixed(1);
     }
-    return Math.round(latest);
+    return String(Math.round(latest));
   });
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2, margin: "0px" });

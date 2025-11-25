@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
-import type React from "react";
 
 export default function SmoothScroll({
   children,
@@ -12,6 +11,7 @@ export default function SmoothScroll({
   // Lower values make it heavier/slower (e.g. 0.05).
   return (
     <ReactLenis options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }} root>
+      {/* @ts-expect-error - React 19 type mismatch with library */}
       {children}
     </ReactLenis>
   );
