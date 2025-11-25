@@ -15,10 +15,7 @@ const LISTINGS = [
   {
     id: 2,
     title: "Your Mark.",
-    images: [
-      "/images/listings/2nd-1.jpg",
-      "/images/listings/2nd-2.jpg",
-    ],
+    images: ["/images/listings/2nd-1.jpg", "/images/listings/2nd-2.jpg"],
     transitionInterval: 12_000,
     initialDelay: 6000,
   },

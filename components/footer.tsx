@@ -63,7 +63,9 @@ export function Footer() {
               <span>
                 {siteConfig.contact.address.street},
                 <br />
-                {siteConfig.contact.address.city}, {siteConfig.contact.address.state} {siteConfig.contact.address.postalCode},
+                {siteConfig.contact.address.city},{" "}
+                {siteConfig.contact.address.state}{" "}
+                {siteConfig.contact.address.postalCode},
                 <br />
                 {siteConfig.contact.address.country}
               </span>
@@ -129,7 +131,8 @@ export function Footer() {
           whileInView={{ opacity: 1 }}
         >
           <p className="font-sans text-rp-ivory/70 text-sm leading-[1.15] tracking-[-0.02em]">
-            © Since {siteConfig.foundedYear} {siteConfig.name}™. All rights reserved.
+            © Since {siteConfig.foundedYear} {siteConfig.name}™. All rights
+            reserved.
           </p>
           <p className="font-sans text-rp-ivory/70 text-sm leading-[1.15] tracking-[-0.02em]">
             {siteConfig.domain} • Short-Term Stays
