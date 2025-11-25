@@ -8,7 +8,7 @@ const LISTINGS = [
   {
     id: 1,
     title: "Your Chapter.",
-    images: ["/images/listings/AL3A3437.jpg", "/images/listings/AL3A3521.jpg"],
+    images: ["/images/listings/AL3A3536.jpg", "/images/listings/AL3A3521.jpg"],
     transitionInterval: 12_000,
     initialDelay: 3000,
   },
@@ -16,8 +16,8 @@ const LISTINGS = [
     id: 2,
     title: "Your Mark.",
     images: [
-      "/images/listings/155-dan-leckie-1.jpeg",
-      "/images/listings/155-dan-leckie-2.jpeg",
+      "/images/listings/2nd-1.jpg",
+      "/images/listings/2nd-2.jpg",
     ],
     transitionInterval: 12_000,
     initialDelay: 6000,
@@ -25,7 +25,7 @@ const LISTINGS = [
   {
     id: 3,
     title: "Your Return.",
-    images: ["/images/3rd-1.jpeg", "/images/3rd-2.jpeg"],
+    images: ["/images/listings/3rd-1.jpeg", "/images/listings/3rd-2.jpeg"],
     transitionInterval: 12_000,
     initialDelay: 9000,
   },
