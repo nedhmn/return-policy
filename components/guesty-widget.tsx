@@ -4,6 +4,110 @@ import { useEffect, useRef } from "react";
 
 export function GuestyWidget() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dateRangeSetRef = useRef(false);
+
+  // Set default date range (today + tomorrow) - seamlessly without showing calendar
+  useEffect(() => {
+    if (dateRangeSetRef.current) return;
+
+    const setDefaultDates = async () => {
+      const checkInInput = document.querySelector(
+        "#search-widget_IO312PWQ input.check-in"
+      ) as HTMLInputElement;
+      const lp = document.querySelector(".lightpick") as HTMLElement;
+
+      if (!checkInInput || !lp) return false;
+
+      // Skip if dates already set
+      if (checkInInput.value) {
+        dateRangeSetRef.current = true;
+        return true;
+      }
+
+      // Hide calendar off-screen BEFORE triggering it to open
+      lp.style.cssText =
+        "position: fixed !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; pointer-events: auto !important; visibility: hidden !important;";
+
+      // Helper to simulate click
+      const simulateClick = (el: Element) => {
+        el.dispatchEvent(
+          new MouseEvent("mousedown", { bubbles: true, cancelable: true })
+        );
+        el.dispatchEvent(
+          new MouseEvent("mouseup", { bubbles: true, cancelable: true })
+        );
+        el.dispatchEvent(
+          new MouseEvent("click", { bubbles: true, cancelable: true })
+        );
+      };
+
+      // Click input to trigger lightpick to render day cells
+      simulateClick(checkInInput);
+
+      // Wait for cells to render
+      await new Promise((r) => setTimeout(r, 150));
+
+      // Get today and tomorrow
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      // Helper to find cell by date
+      const findCellByDate = (targetDate: Date): Element | null => {
+        const cells = lp.querySelectorAll(
+          ".lightpick__day:not(.is-disabled):not(.is-previous-month)"
+        );
+        let foundCell: Element | null = null;
+        cells.forEach((cell) => {
+          const timestamp = parseInt(cell.getAttribute("data-time") || "0", 10);
+          const cellDate = new Date(timestamp);
+          cellDate.setHours(0, 0, 0, 0);
+          if (cellDate.toDateString() === targetDate.toDateString()) {
+            foundCell = cell;
+          }
+        });
+        return foundCell;
+      };
+
+      const todayCell = findCellByDate(today);
+      if (todayCell) {
+        simulateClick(todayCell);
+        await new Promise((r) => setTimeout(r, 100));
+
+        const tomorrowCell = findCellByDate(tomorrow);
+        if (tomorrowCell) {
+          simulateClick(tomorrowCell);
+        }
+      }
+
+      // Restore lightpick to normal state - remove all inline hiding styles
+      // The lightpick library manages its own visibility, so we need to clear
+      // our hiding styles and let it handle show/hide normally
+      await new Promise((r) => setTimeout(r, 50));
+      lp.removeAttribute("style");
+
+      dateRangeSetRef.current = true;
+      return true;
+    };
+
+    // Watch for widget to load
+    const observer = new MutationObserver(() => {
+      const lp = document.querySelector(".lightpick");
+      if (lp && !dateRangeSetRef.current) {
+        setTimeout(() => {
+          setDefaultDates();
+        }, 100);
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // Execute the Guesty snippet logic
