@@ -197,3 +197,23 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Guesty lightpick - ALWAYS hidden by default, only shown when body has ready class */
+.lightpick {
+  position: fixed !important;
+  left: -99999px !important;
+  top: -99999px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Only show lightpick when dates are initialized AND calendar should be visible */
+body.guesty-dates-ready .lightpick:not(.is-hidden) {
+  position: absolute !important;
+  left: auto !important;
+  top: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}

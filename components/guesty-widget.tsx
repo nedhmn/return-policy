@@ -6,9 +6,12 @@ export function GuestyWidget() {
   const containerRef = useRef<HTMLDivElement>(null);
   const dateRangeSetRef = useRef(false);
 
-  // Set default date range (today + tomorrow) - seamlessly without showing calendar
+  // Set default date range (today + tomorrow) - lightpick hidden by CSS until ready
   useEffect(() => {
-    if (dateRangeSetRef.current) return;
+    if (dateRangeSetRef.current) {
+      document.body.classList.add("guesty-dates-ready");
+      return;
+    }
 
     const setDefaultDates = async () => {
       const checkInInput = document.querySelector(
@@ -21,12 +24,9 @@ export function GuestyWidget() {
       // Skip if dates already set
       if (checkInInput.value) {
         dateRangeSetRef.current = true;
+        document.body.classList.add("guesty-dates-ready");
         return true;
       }
-
-      // Hide calendar off-screen BEFORE triggering it to open
-      lp.style.cssText =
-        "position: fixed !important; left: -9999px !important; top: -9999px !important; opacity: 0 !important; pointer-events: auto !important; visibility: hidden !important;";
 
       // Helper to simulate click
       const simulateClick = (el: Element) => {
@@ -81,23 +81,20 @@ export function GuestyWidget() {
         }
       }
 
-      // Restore lightpick to normal state - remove all inline hiding styles
-      // The lightpick library manages its own visibility, so we need to clear
-      // our hiding styles and let it handle show/hide normally
-      await new Promise((r) => setTimeout(r, 50));
-      lp.removeAttribute("style");
+      // Wait for lightpick to close and inputs to update
+      await new Promise((r) => setTimeout(r, 100));
 
       dateRangeSetRef.current = true;
+      // Add ready class to allow lightpick to show normally when user clicks
+      document.body.classList.add("guesty-dates-ready");
       return true;
     };
 
-    // Watch for widget to load
+    // Watch for lightpick to appear
     const observer = new MutationObserver(() => {
       const lp = document.querySelector(".lightpick");
       if (lp && !dateRangeSetRef.current) {
-        setTimeout(() => {
-          setDefaultDates();
-        }, 100);
+        setDefaultDates();
       }
     });
 
@@ -106,7 +103,9 @@ export function GuestyWidget() {
       subtree: true,
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
