@@ -1,8 +1,9 @@
 "use server";
 
 import { Resend } from "resend";
+import { env } from "@/env";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API_KEY);
 
 export async function submitPartnerContact(data: {
   name: string;
