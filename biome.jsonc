@@ -2,11 +2,6 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
   "files": {
-    "includes": [
-      "**/*",
-      "!components/ui",
-      "!components/guesty-widget.tsx",
-      "!.ignore"
-    ]
+    "includes": ["**/*", "!components/ui", "!.ignore"]
   }
 }

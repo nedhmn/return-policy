@@ -54,14 +54,15 @@ export function Navbar() {
                   <span className="sr-only">Menu</span>
                   <svg
                     aria-hidden="true"
+                    className="size-[25px]"
                     fill="none"
-                    height="24"
+                    height="25"
                     stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="2"
+                    strokeWidth="2.5"
                     viewBox="0 0 24 24"
-                    width="24"
+                    width="25"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <line x1="4" x2="20" y1="12" y2="12" />

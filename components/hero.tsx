@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GuestyWidget } from "@/components/guesty-widget";
+import { SearchWidget } from "@/components/search-widget";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -52,11 +52,11 @@ export function Hero() {
 
   return (
     <section className="relative z-20 flex min-h-[700px] w-full flex-col items-center justify-center pt-28 pb-16 md:pt-32 md:pb-20 lg:min-h-screen xl:pt-32 xl:pb-24">
-      <div className="container relative z-10 mx-auto grid h-full w-full max-w-7xl items-center gap-4 px-6 lg:grid-cols-12 lg:px-12">
-        <div className="z-10 flex w-full flex-col items-start gap-8 text-left lg:col-span-7">
+      <div className="container relative z-10 mx-auto grid h-full w-full max-w-7xl items-center gap-4 px-6 md:grid-cols-12 md:px-12">
+        <div className="z-10 flex w-full flex-col items-start gap-8 text-left md:col-span-7">
           <motion.h1
             animate="visible"
-            className="font-medium font-sans text-6xl leading-[0.82] tracking-[-0.05em] md:text-8xl lg:text-[7rem] xl:text-9xl"
+            className="font-medium font-sans text-8xl leading-[0.82] tracking-[-0.05em] lg:text-[7rem] xl:text-9xl"
             initial="hidden"
             variants={containerVariants}
           >
@@ -89,14 +89,14 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
+        <div className="flex w-full justify-center md:col-span-5 md:justify-end">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             className="w-full"
             initial={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
-            <GuestyWidget />
+            <SearchWidget />
           </motion.div>
         </div>
       </div>
