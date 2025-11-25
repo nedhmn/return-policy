@@ -12,6 +12,7 @@ export type SiteConfig = {
     phoneRaw: string;
     address: {
       street: string;
+      suite?: string;
       city: string;
       state: string;
       postalCode: string;
@@ -52,6 +53,7 @@ export const siteConfig: SiteConfig = {
     phoneRaw: "+14165543272",
     address: {
       street: "639 Queen St W",
+      suite: "Suite 501",
       city: "Toronto",
       state: "ON",
       postalCode: "M5V 2B7",

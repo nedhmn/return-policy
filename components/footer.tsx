@@ -61,7 +61,10 @@ export function Footer() {
             <div className="flex items-start gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em]">
               <MapPin className="h-5 w-5 shrink-0" />
               <span>
-                {siteConfig.contact.address.street},
+                {siteConfig.contact.address.street}
+                {siteConfig.contact.address.suite &&
+                  `, ${siteConfig.contact.address.suite}`}
+                ,
                 <br />
                 {siteConfig.contact.address.city},{" "}
                 {siteConfig.contact.address.state}{" "}
