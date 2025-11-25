@@ -1,16 +1,16 @@
-"use server"
+"use server";
 
-import { Resend } from "resend"
+import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function submitPartnerContact(data: {
-  name: string
-  email: string
-  phone: string
+  name: string;
+  email: string;
+  phone: string;
 }) {
   try {
-    const { name, email, phone } = data
+    const { name, email, phone } = data;
 
     await resend.emails.send({
       from: "Return Policy <onboarding@resend.dev>",
@@ -22,11 +22,11 @@ export async function submitPartnerContact(data: {
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
       `,
-    })
+    });
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
-    console.error("[v0] Partner contact error:", error)
-    return { success: false }
+    console.error("[v0] Partner contact error:", error);
+    return { success: false };
   }
 }

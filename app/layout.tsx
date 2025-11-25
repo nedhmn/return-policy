@@ -1,17 +1,17 @@
-import type React from "react"
-import type { Metadata } from "next"
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
 // Replace Geist fonts with Inter for Return Policy brand
-import { Inter } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import SmoothScroll from "@/components/smooth-scroll"
-import { PageTransition } from "@/components/page-transition"
-import "./globals.css"
+import { Inter } from "next/font/google";
+import type React from "react";
+import { PageTransition } from "@/components/page-transition";
+import SmoothScroll from "@/components/smooth-scroll";
+import "./globals.css";
 
 // Configure Inter font with brand specifications
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-})
+});
 
 export const metadata: Metadata = {
   // Update metadata for Return Policy
@@ -36,12 +36,12 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -52,5 +52,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

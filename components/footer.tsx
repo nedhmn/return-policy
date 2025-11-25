@@ -1,62 +1,64 @@
-"use client"
+"use client";
 
-import { Mail, MapPin, Phone } from "lucide-react"
-import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
+import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="bg-rp-black text-rp-ivory py-12 md:py-16">
-      <div className="container max-w-7xl mx-auto w-full px-6 lg:px-12">
+    <footer className="bg-rp-black py-12 text-rp-ivory md:py-16">
+      <div className="container mx-auto w-full max-w-7xl px-6 lg:px-12">
         <motion.div
+          className="mb-16 flex items-start justify-between lg:mb-24"
           initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-start justify-between mb-16 lg:mb-24"
+          viewport={{ once: true, margin: "-50px" }}
+          whileInView={{ opacity: 1, y: 0 }}
         >
-          <h2 className="font-sans font-medium text-5xl md:text-7xl lg:text-8xl leading-[0.82] tracking-[-0.05em] text-rp-yellow">
+          <h2 className="font-medium font-sans text-5xl text-rp-yellow leading-[0.82] tracking-[-0.05em] md:text-7xl lg:text-8xl">
             See You
             <br />
             Sooner.
           </h2>
-          <div className="w-32 lg:w-40 flex-shrink-0">
+          <div className="w-32 flex-shrink-0 lg:w-40">
             <Image
-              src="/images/rp-primary-logo-white.svg"
               alt="Return Policy Logo"
-              width={160}
+              className="h-auto w-full"
               height={80}
-              className="w-full h-auto"
+              src="/images/rp-primary-logo-white.svg"
+              width={160}
             />
           </div>
         </motion.div>
 
         <motion.div
+          className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-16"
           initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 mb-12"
+          viewport={{ once: true, margin: "-50px" }}
+          whileInView={{ opacity: 1, y: 0 }}
         >
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="font-sans font-medium text-lg tracking-[-0.04em] leading-[0.96] mb-6">Contact</h3>
+            <h3 className="mb-6 font-medium font-sans text-lg leading-[0.96] tracking-[-0.04em]">
+              Contact
+            </h3>
             <a
+              className="flex items-center gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="mailto:help@returnpolicystays.com"
-              className="flex items-center gap-3 text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
             >
-              <Mail className="w-5 h-5" />
+              <Mail className="h-5 w-5" />
               help@returnpolicystays.com
             </a>
             <a
+              className="flex items-center gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="tel:+14165543272"
-              className="flex items-center gap-3 text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
             >
-              <Phone className="w-5 h-5" />
+              <Phone className="h-5 w-5" />
               +1 (416) 554-3272
             </a>
-            <div className="flex items-start gap-3 text-rp-ivory font-sans tracking-[-0.02em] leading-[1.15]">
-              <MapPin className="w-5 h-5 flex-shrink-0" />
+            <div className="flex items-start gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em]">
+              <MapPin className="h-5 w-5 flex-shrink-0" />
               <span>
                 639 Queen St W,
                 <br />
@@ -69,16 +71,18 @@ export function Footer() {
 
           {/* Legal */}
           <div className="space-y-4">
-            <h3 className="font-sans font-medium text-lg tracking-[-0.04em] leading-[0.96] mb-6">Legal</h3>
+            <h3 className="mb-6 font-medium font-sans text-lg leading-[0.96] tracking-[-0.04em]">
+              Legal
+            </h3>
             <a
+              className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="/terms"
-              className="block text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
             >
               Terms of Service
             </a>
             <a
+              className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="/privacy"
-              className="block text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
             >
               Privacy Policy
             </a>
@@ -86,28 +90,30 @@ export function Footer() {
 
           {/* Social & Info */}
           <div className="space-y-4">
-            <h3 className="font-sans font-medium text-lg tracking-[-0.04em] leading-[0.96] mb-6">Follow Us</h3>
+            <h3 className="mb-6 font-medium font-sans text-lg leading-[0.96] tracking-[-0.04em]">
+              Follow Us
+            </h3>
             <a
+              className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="https://instagram.com/returnpolicy"
-              target="_blank"
               rel="noopener noreferrer"
-              className="block text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
+              target="_blank"
             >
               Instagram
             </a>
             <a
+              className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="https://twitter.com/returnpolicy"
-              target="_blank"
               rel="noopener noreferrer"
-              className="block text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
+              target="_blank"
             >
               Twitter
             </a>
             <a
+              className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
               href="https://linkedin.com/company/returnpolicy"
-              target="_blank"
               rel="noopener noreferrer"
-              className="block text-rp-ivory hover:text-rp-yellow transition-colors font-sans tracking-[-0.02em] leading-[1.15]"
+              target="_blank"
             >
               LinkedIn
             </a>
@@ -115,20 +121,20 @@ export function Footer() {
         </motion.div>
 
         <motion.div
+          className="flex flex-col items-start justify-between gap-4 border-rp-ivory/20 border-t pt-8 md:flex-row md:items-center"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-8 border-t border-rp-ivory/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+          viewport={{ once: true, margin: "-50px" }}
+          whileInView={{ opacity: 1 }}
         >
-          <p className="text-sm font-sans tracking-[-0.02em] leading-[1.15] text-rp-ivory/70">
+          <p className="font-sans text-rp-ivory/70 text-sm leading-[1.15] tracking-[-0.02em]">
             © Since 2018 Return Policy™. All rights reserved.
           </p>
-          <p className="text-sm font-sans tracking-[-0.02em] leading-[1.15] text-rp-ivory/70">
+          <p className="font-sans text-rp-ivory/70 text-sm leading-[1.15] tracking-[-0.02em]">
             returnpolicystays.com • Short-Term Stays
           </p>
         </motion.div>
       </div>
     </footer>
-  )
+  );
 }

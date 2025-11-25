@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { GuestyWidget } from "@/components/guesty-widget"
+import { motion } from "framer-motion";
+import { GuestyWidget } from "@/components/guesty-widget";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -12,7 +12,7 @@ const containerVariants = {
       delayChildren: 0.2,
     },
   },
-}
+};
 
 const lineVariants = {
   hidden: { y: "100%", opacity: 0 },
@@ -24,7 +24,7 @@ const lineVariants = {
       ease: [0.16, 1, 0.3, 1],
     },
   },
-}
+};
 
 export function Hero() {
   const titleLines = [
@@ -48,23 +48,26 @@ export function Hero() {
       id: "line5",
       segments: [{ text: "STAYS.", className: "text-rp-mint" }],
     },
-  ]
+  ];
 
   return (
-    <section className="relative flex flex-col justify-center items-center min-h-[700px] lg:min-h-screen w-full pt-28 pb-16 md:pt-32 md:pb-20 xl:pt-32 xl:pb-24 z-20">
-      <div className="container max-w-7xl relative mx-auto h-full w-full px-6 lg:px-12 grid lg:grid-cols-12 gap-4 items-center z-10">
-        <div className="z-10 flex w-full flex-col items-start text-left lg:col-span-7 gap-8">
+    <section className="relative z-20 flex min-h-[700px] w-full flex-col items-center justify-center pt-28 pb-16 md:pt-32 md:pb-20 lg:min-h-screen xl:pt-32 xl:pb-24">
+      <div className="container relative z-10 mx-auto grid h-full w-full max-w-7xl items-center gap-4 px-6 lg:grid-cols-12 lg:px-12">
+        <div className="z-10 flex w-full flex-col items-start gap-8 text-left lg:col-span-7">
           <motion.h1
-            initial="hidden"
             animate="visible"
+            className="font-medium font-sans text-6xl leading-[0.82] tracking-[-0.05em] md:text-8xl lg:text-[7rem] xl:text-9xl"
+            initial="hidden"
             variants={containerVariants}
-            className="font-sans text-6xl md:text-8xl lg:text-[7rem] xl:text-9xl font-medium leading-[0.82] tracking-[-0.05em]"
           >
             {titleLines.map((line) => (
-              <span key={line.id} className="block overflow-hidden pb-[0.2em] -mb-[0.2em]">
-                <motion.span variants={lineVariants} className="block">
-                  {line.segments.map((segment, i) => (
-                    <span key={i} className={segment.className}>
+              <span
+                className="-mb-[0.2em] block overflow-hidden pb-[0.2em]"
+                key={line.id}
+              >
+                <motion.span className="block" variants={lineVariants}>
+                  {line.segments.map((segment) => (
+                    <span className={segment.className} key={segment.text}>
                       {segment.text}
                     </span>
                   ))}
@@ -74,28 +77,29 @@ export function Hero() {
           </motion.h1>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            <p className="text-xl md:text-2xl font-normal leading-[1.15] tracking-[-0.02em] text-rp-ivory max-w-xl">
-              Another reason to come back. At Return Policy, nothing ends, there are only many happy returns. Designed
-              to feel less like rentals and more like residences.
+            <p className="max-w-xl font-normal text-rp-ivory text-xl leading-[1.15] tracking-[-0.02em] md:text-2xl">
+              Another reason to come back. At Return Policy, nothing ends, there
+              are only many happy returns. Designed to feel less like rentals
+              and more like residences.
             </p>
           </motion.div>
         </div>
 
-        <div className="lg:col-span-5 w-full flex justify-center lg:justify-end">
+        <div className="flex w-full justify-center lg:col-span-5 lg:justify-end">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
             className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
           >
             <GuestyWidget />
           </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }

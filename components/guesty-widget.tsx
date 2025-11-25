@@ -1,92 +1,98 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
 export function GuestyWidget() {
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Execute the Guesty snippet logic
-    const startGuestyWidget = (
-      win: Window,
-      doc: Document,
-      widgetName: string,
-      cssUrl: string,
-      jsUrl: string,
-      config: any,
-    ) => {
-      function logError(msg: string) {
-        console.log("[Guesty Embedded Widget]:", msg)
-      }
+    const startGuestyWidget = (options: {
+      win: Window;
+      doc: Document;
+      widgetName: string;
+      cssUrl: string;
+      jsUrl: string;
+      config: Record<string, unknown>;
+    }) => {
+      const { win, doc, widgetName, cssUrl, jsUrl, config } = options;
+      const logError = (msg: string) =>
+        console.log("[Guesty Embedded Widget]:", msg);
 
       // Inject CSS
       if (cssUrl) {
-        const head = doc.getElementsByTagName("head")[0]
+        const head = doc.getElementsByTagName("head")[0];
         if (!doc.querySelector(`link[href="${cssUrl}"]`)) {
-          const link = doc.createElement("link")
-          link.rel = "stylesheet"
-          link.type = "text/css"
-          link.href = cssUrl
-          link.media = "all"
-          head.appendChild(link)
+          const link = doc.createElement("link");
+          link.rel = "stylesheet";
+          link.type = "text/css";
+          link.href = cssUrl;
+          link.media = "all";
+          head.appendChild(link);
         }
       }
 
       // Initialization function
       const init = () => {
         try {
-          // @ts-ignore
-          win[widgetName].create(config).catch((e: any) => {
-            logError(e.message)
-          })
-        } catch (e: any) {
-          logError(e.message)
+          // @ts-expect-error - Guesty widget API
+          win[widgetName].create(config).catch((e: Error) => {
+            logError(e.message);
+          });
+        } catch (e) {
+          logError(e instanceof Error ? e.message : String(e));
         }
-      }
+      };
 
       // Check if script already exists
-      let script = doc.querySelector(`script[src="${jsUrl}"]`) as HTMLScriptElement
-      if (!script) {
-        script = doc.createElement("script")
-        script.type = "text/javascript"
-        script.src = jsUrl
-        script.async = true
-        script.onload = init
-        // @ts-ignore
-        script.onreadystatechange = function () {
-          // @ts-ignore
-          if (this.readyState === "complete") init()
-        }
-        const firstScript = doc.getElementsByTagName("script")[0]
-        if (firstScript && firstScript.parentNode) {
-          firstScript.parentNode.insertBefore(script, firstScript)
-        } else {
-          doc.head.appendChild(script)
-        }
-      } else {
+      let script = doc.querySelector(
+        `script[src="${jsUrl}"]`
+      ) as HTMLScriptElement;
+      if (script) {
         // If script is already loaded, just init
-        init()
+        init();
+      } else {
+        script = doc.createElement("script");
+        script.type = "text/javascript";
+        script.src = jsUrl;
+        script.async = true;
+        script.onload = init;
+        // @ts-expect-error
+        script.onreadystatechange = function () {
+          // @ts-expect-error
+          if (this.readyState === "complete") {
+            init();
+          }
+        };
+        const firstScript = doc.getElementsByTagName("script")[0];
+        if (firstScript?.parentNode) {
+          firstScript.parentNode.insertBefore(script, firstScript);
+        } else {
+          doc.head.appendChild(script);
+        }
       }
-    }
+    };
 
     // Run the function with the provided parameters
-    startGuestyWidget(
-      window,
-      document,
-      "GuestySearchBarWidget",
-      "https://s3.amazonaws.com/guesty-frontend-production/search-bar-production.css",
-      "https://s3.amazonaws.com/guesty-frontend-production/search-bar-production.js",
-      {
+    startGuestyWidget({
+      win: window,
+      doc: document,
+      widgetName: "GuestySearchBarWidget",
+      cssUrl:
+        "https://s3.amazonaws.com/guesty-frontend-production/search-bar-production.css",
+      jsUrl:
+        "https://s3.amazonaws.com/guesty-frontend-production/search-bar-production.js",
+      config: {
         siteUrl: "book.returnpolicystays.com",
         color: "#4097DB",
       },
-    )
-  }, [])
+    });
+  }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto" ref={containerRef}>
+    <div className="mx-auto w-full max-w-4xl" ref={containerRef}>
       <div className="relative rounded-[3rem] bg-white p-2 shadow-xl ring-1 ring-black/5 md:p-3">
-        <style jsx global>{`
+        <style global jsx>{`
           /* Main Widget Container */
           #search-widget_IO312PWQ {
             background: #ffffff;
@@ -301,8 +307,8 @@ export function GuestyWidget() {
             }
           }
         `}</style>
-        <div id="search-widget_IO312PWQ" className="w-full" />
+        <div className="w-full" id="search-widget_IO312PWQ" />
       </div>
     </div>
-  )
+  );
 }

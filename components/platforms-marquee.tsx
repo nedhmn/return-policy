@@ -1,63 +1,74 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import Image from "next/image"
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+
+function getSizeClass(size: string) {
+  if (size === "xlarge") {
+    return "h-32 w-auto object-contain md:h-40";
+  }
+  if (size === "large") {
+    return "h-24 w-auto object-contain md:h-32";
+  }
+  return "h-16 w-auto object-contain md:h-20";
+}
 
 const platforms = [
   { name: "Airbnb", logo: "/platforms/airbnb-white.svg", size: "large" },
   { name: "Booking.com", logo: "/platforms/booking-white.svg", size: "large" },
   { name: "Vrbo", logo: "/platforms/vrbo-white.svg", size: "normal" },
   { name: "Stayz", logo: "/platforms/stayz-white.svg", size: "normal" },
-  { name: "Capital One", logo: "/platforms/capital-one-white.svg", size: "xlarge" },
+  {
+    name: "Capital One",
+    logo: "/platforms/capital-one-white.svg",
+    size: "xlarge",
+  },
   { name: "Hopper", logo: "/platforms/hopper-white.svg", size: "normal" },
   { name: "Livily", logo: "/platforms/livily-white.svg", size: "normal" },
-]
+];
 
 export function PlatformsMarquee() {
-  const scrollerRef = useRef<HTMLDivElement>(null)
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const scroller = scrollerRef.current
-    if (!scroller) return
+    const scroller = scrollerRef.current;
+    if (!scroller) {
+      return;
+    }
 
     // Clone the content for seamless loop
-    const scrollerContent = Array.from(scroller.children)
-    scrollerContent.forEach((item) => {
-      const duplicatedItem = item.cloneNode(true)
-      if (scroller) {
-        scroller.appendChild(duplicatedItem as Node)
-      }
-    })
-  }, [])
+    const scrollerContent = Array.from(scroller.children);
+    for (const item of scrollerContent) {
+      const duplicatedItem = item.cloneNode(true);
+      scroller.appendChild(duplicatedItem as Node);
+    }
+  }, []);
 
   return (
-    <section className="w-full py-8 bg-black overflow-hidden border-t border-white/10 relative">
-      <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+    <section className="relative w-full overflow-hidden border-white/10 border-t bg-black py-8">
+      <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-32 bg-gradient-to-r from-black to-transparent md:w-48" />
 
-      <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-32 bg-gradient-to-l from-black to-transparent md:w-48" />
 
-      <div className="flex items-center w-max animate-marquee-turbo" ref={scrollerRef}>
+      <div
+        className="flex w-max animate-marquee-turbo items-center"
+        ref={scrollerRef}
+      >
         {platforms.map((platform, index) => (
           <div
+            className="mx-12 flex min-w-[240px] items-center justify-center md:mx-16"
             key={`${platform.name}-${index}`}
-            className="flex items-center justify-center mx-12 md:mx-16 min-w-[240px]"
           >
             <Image
-              src={platform.logo || "/placeholder.svg"}
               alt={platform.name}
-              width={240}
+              className={getSizeClass(platform.size)}
               height={80}
-              className={
-                platform.size === "xlarge"
-                  ? "h-32 md:h-40 w-auto object-contain"
-                  : platform.size === "large"
-                    ? "h-24 md:h-32 w-auto object-contain"
-                    : "h-16 md:h-20 w-auto object-contain"
-              }
+              src={platform.logo || "/placeholder.svg"}
+              width={240}
             />
           </div>
         ))}
       </div>
     </section>
-  )
+  );
 }
