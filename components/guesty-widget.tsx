@@ -6,20 +6,38 @@ export function GuestyWidget() {
   const containerRef = useRef<HTMLDivElement>(null);
   const dateRangeSetRef = useRef(false);
 
-  // Set default date range (today + tomorrow) - lightpick hidden by CSS until ready
+  // Set default date range (today + tomorrow) - wait for styles before interacting
   useEffect(() => {
     if (dateRangeSetRef.current) {
       document.body.classList.add("guesty-dates-ready");
       return;
     }
 
+    let isSettingDates = false;
+
+    // Wait for next frame to ensure styles are applied
+    const waitForPaint = () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            resolve();
+          });
+        });
+      });
+
     const setDefaultDates = async () => {
+      if (isSettingDates || dateRangeSetRef.current) return false;
+      isSettingDates = true;
+
       const checkInInput = document.querySelector(
         "#search-widget_IO312PWQ input.check-in"
       ) as HTMLInputElement;
       const lp = document.querySelector(".lightpick") as HTMLElement;
 
-      if (!checkInInput || !lp) return false;
+      if (!checkInInput || !lp) {
+        isSettingDates = false;
+        return false;
+      }
 
       // Skip if dates already set
       if (checkInInput.value) {
@@ -27,6 +45,15 @@ export function GuestyWidget() {
         document.body.classList.add("guesty-dates-ready");
         return true;
       }
+
+      // FORCE hide with inline styles immediately
+      lp.style.cssText =
+        "position: fixed !important; left: -99999px !important; top: -99999px !important; visibility: hidden !important; opacity: 0 !important;";
+
+      // Wait for the hiding styles to be painted
+      await waitForPaint();
+      // Extra safety delay
+      await new Promise((r) => setTimeout(r, 50));
 
       // Helper to simulate click
       const simulateClick = (el: Element) => {
@@ -45,7 +72,7 @@ export function GuestyWidget() {
       simulateClick(checkInInput);
 
       // Wait for cells to render
-      await new Promise((r) => setTimeout(r, 150));
+      await new Promise((r) => setTimeout(r, 200));
 
       // Get today and tomorrow
       const today = new Date();
@@ -84,17 +111,44 @@ export function GuestyWidget() {
       // Wait for lightpick to close and inputs to update
       await new Promise((r) => setTimeout(r, 100));
 
+      // Remove inline styles
+      lp.removeAttribute("style");
+
       dateRangeSetRef.current = true;
-      // Add ready class to allow lightpick to show normally when user clicks
       document.body.classList.add("guesty-dates-ready");
       return true;
     };
 
-    // Watch for lightpick to appear
-    const observer = new MutationObserver(() => {
-      const lp = document.querySelector(".lightpick");
-      if (lp && !dateRangeSetRef.current) {
-        setDefaultDates();
+    // Watch for lightpick to appear and IMMEDIATELY hide it
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        for (const node of mutation.addedNodes) {
+          if (node instanceof HTMLElement) {
+            // Immediately hide any lightpick element the moment it's added
+            if (node.classList?.contains("lightpick")) {
+              node.style.cssText =
+                "position: fixed !important; left: -99999px !important; top: -99999px !important; visibility: hidden !important; opacity: 0 !important;";
+            }
+            const nested = node.querySelector?.(".lightpick") as HTMLElement;
+            if (nested) {
+              nested.style.cssText =
+                "position: fixed !important; left: -99999px !important; top: -99999px !important; visibility: hidden !important; opacity: 0 !important;";
+            }
+          }
+        }
+      }
+
+      // Check if we should start date selection
+      const lp = document.querySelector(".lightpick") as HTMLElement;
+      if (lp && !dateRangeSetRef.current && !isSettingDates) {
+        // Hide it first, then wait, then set dates
+        lp.style.cssText =
+          "position: fixed !important; left: -99999px !important; top: -99999px !important; visibility: hidden !important; opacity: 0 !important;";
+
+        // Wait for styles to apply before doing anything
+        setTimeout(() => {
+          setDefaultDates();
+        }, 100);
       }
     });
 
