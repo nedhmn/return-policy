@@ -11,8 +11,12 @@ export function BrandShowcase() {
       return;
     }
 
+    // Fix React bug #10389 - must set BOTH the attribute AND the property
+    // iOS WebKit requires the HTML attribute to be present for autoplay
+    video.setAttribute("muted", "");
+    video.muted = true;
+
     const playVideo = () => {
-      video.muted = true;
       video.play().catch(() => {
         // Autoplay prevented - requires user interaction
       });
