@@ -14,7 +14,7 @@ export async function submitPartnerContact(data: {
 
     await resend.emails.send({
       from: "Return Policy <onboarding@resend.dev>",
-      to: "hermannned@gmail.com",
+      to: "partner@returnpolicystays.com",
       subject: "New Partner Contact Form Submission",
       html: `
         <h2>New Partner Contact</h2>
