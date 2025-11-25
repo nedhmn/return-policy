@@ -2,6 +2,7 @@
 
 import { Resend } from "resend";
 import { env } from "@/env";
+import { siteConfig } from "@/lib/config";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -14,8 +15,8 @@ export async function submitPartnerContact(data: {
     const { name, email, phone } = data;
 
     await resend.emails.send({
-      from: "Return Policy <noreply@returnpolicystays.com>",
-      to: "partner@returnpolicystays.com",
+      from: siteConfig.email.from,
+      to: siteConfig.email.partnerRecipient,
       replyTo: email,
       subject: `Partner Inquiry from ${name}`,
       html: `

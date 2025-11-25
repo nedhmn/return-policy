@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import type React from "react";
 import { PageTransition } from "@/components/page-transition";
 import SmoothScroll from "@/components/smooth-scroll";
+import { siteConfig } from "@/lib/config";
 import "./globals.css";
 
 // Configure Inter font with brand specifications
@@ -14,11 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  // Update metadata for Return Policy
-  title: "Return Policy | Short-Term Stays",
-  description:
-    "Every departure, just another beginning. Short-term stays designed to feel less like rentals and more like residences.",
-  generator: "v0.app",
+  metadataBase: new URL(siteConfig.url),
+  title: siteConfig.title,
+  description: siteConfig.description,
   icons: {
     icon: [
       {

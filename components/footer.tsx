@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
+import { siteConfig } from "@/lib/config";
 
 export function Footer() {
   return (
@@ -45,26 +46,26 @@ export function Footer() {
             </h3>
             <a
               className="flex items-center gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
-              href="mailto:help@returnpolicystays.com"
+              href={`mailto:${siteConfig.contact.email}`}
             >
               <Mail className="h-5 w-5" />
-              help@returnpolicystays.com
+              {siteConfig.contact.email}
             </a>
             <a
               className="flex items-center gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
-              href="tel:+14165543272"
+              href={`tel:${siteConfig.contact.phoneRaw}`}
             >
               <Phone className="h-5 w-5" />
-              +1 (416) 554-3272
+              {siteConfig.contact.phone}
             </a>
             <div className="flex items-start gap-3 font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em]">
               <MapPin className="h-5 w-5 flex-shrink-0" />
               <span>
-                639 Queen St W,
+                {siteConfig.contact.address.street},
                 <br />
-                Toronto, ON M5V 2B7,
+                {siteConfig.contact.address.city}, {siteConfig.contact.address.state} {siteConfig.contact.address.postalCode},
                 <br />
-                Canada
+                {siteConfig.contact.address.country}
               </span>
             </div>
           </div>
@@ -95,7 +96,7 @@ export function Footer() {
             </h3>
             <a
               className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
-              href="https://instagram.com/returnpolicy"
+              href={siteConfig.socials.instagram}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -103,7 +104,7 @@ export function Footer() {
             </a>
             <a
               className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
-              href="https://twitter.com/returnpolicy"
+              href={siteConfig.socials.twitter}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -111,7 +112,7 @@ export function Footer() {
             </a>
             <a
               className="block font-sans text-rp-ivory leading-[1.15] tracking-[-0.02em] transition-colors hover:text-rp-yellow"
-              href="https://linkedin.com/company/returnpolicy"
+              href={siteConfig.socials.linkedin}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -128,10 +129,10 @@ export function Footer() {
           whileInView={{ opacity: 1 }}
         >
           <p className="font-sans text-rp-ivory/70 text-sm leading-[1.15] tracking-[-0.02em]">
-            © Since 2018 Return Policy™. All rights reserved.
+            © Since {siteConfig.foundedYear} {siteConfig.name}™. All rights reserved.
           </p>
           <p className="font-sans text-rp-ivory/70 text-sm leading-[1.15] tracking-[-0.02em]">
-            returnpolicystays.com • Short-Term Stays
+            {siteConfig.domain} • Short-Term Stays
           </p>
         </motion.div>
       </div>

@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { siteConfig } from "@/lib/config";
 
 function AnimatedCounter({
   value,
@@ -47,10 +48,10 @@ function AnimatedCounter({
 
 export function About() {
   const stats = [
-    { label: "Founded", value: 2018, display: "year" },
-    { label: "Guests Served", value: 300, suffix: "K+" },
-    { label: "Avg Rating", value: 9.8, suffix: "/10" },
-    { label: "Countries", value: 3, display: "number" },
+    { label: "Founded", value: siteConfig.foundedYear },
+    { label: "Guests Served", value: siteConfig.stats.guestsServed.value, suffix: siteConfig.stats.guestsServed.suffix },
+    { label: "Avg Rating", value: siteConfig.stats.avgRating.value, suffix: siteConfig.stats.avgRating.suffix },
+    { label: "Countries", value: siteConfig.stats.countries },
   ];
 
   return (
