@@ -231,3 +231,249 @@ body.guesty-dates-ready .lightpick:not(.is-hidden) {
   visibility: visible !important;
   pointer-events: auto !important;
 }
+
+/* ===== react-dates (Airbnb) Custom Styles ===== */
+
+/* Container wrapper */
+.rp-date-picker {
+  width: 100%;
+}
+
+.rp-date-picker .DateRangePicker {
+  width: 100%;
+}
+
+.rp-date-picker .DateRangePickerInput {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.35rem 1rem;
+  transition: all 0.15s ease;
+}
+
+@media (min-width: 768px) {
+  .rp-date-picker .DateRangePickerInput {
+    padding: 0.55rem 1.25rem;
+  }
+}
+
+.rp-date-picker .DateRangePickerInput:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.rp-date-picker .DateRangePickerInput__showClearDates {
+  padding-right: 2.5rem;
+}
+
+/* Input fields */
+.rp-date-picker .DateInput {
+  width: auto;
+  flex: 1;
+  background: transparent;
+}
+
+.rp-date-picker .DateInput_input {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  color: var(--rp-black);
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .rp-date-picker .DateInput_input {
+    font-size: 1.125rem;
+  }
+}
+
+.rp-date-picker .DateInput_input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.rp-date-picker .DateInput_input__focused {
+  border: none;
+}
+
+/* Arrow between dates */
+.rp-date-picker .DateRangePickerInput_arrow {
+  color: rgba(0, 0, 0, 0.4);
+  padding: 0 0.5rem;
+  flex-shrink: 0;
+}
+
+.rp-date-picker .DateRangePickerInput_arrow_svg {
+  display: none;
+}
+
+.rp-date-picker .DateRangePickerInput_arrow::after {
+  content: "→";
+  font-size: 1.5rem;
+}
+
+/* Clear button */
+.rp-date-picker .DateRangePickerInput_clearDates {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  padding: 0.25rem;
+  margin: 0;
+  background: #fff;
+  border: 0;
+  border-radius: 9999px;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  overflow: visible;
+}
+
+@media (min-width: 768px) {
+  .rp-date-picker .DateRangePickerInput_clearDates {
+    right: 0.75rem;
+  }
+}
+
+.rp-date-picker .DateRangePickerInput_clearDates:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.rp-date-picker .DateRangePickerInput_clearDates_svg {
+  fill: rgba(0, 0, 0, 0.4);
+  width: 0.75rem;
+  height: 0.75rem;
+  vertical-align: middle;
+}
+
+/* Calendar picker dropdown */
+.rp-date-picker .DateRangePicker_picker {
+  z-index: 50;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  margin-top: 0.5rem;
+}
+
+/* Calendar */
+.rp-date-picker .DayPicker {
+  background: white;
+  border-radius: 0.75rem;
+}
+
+.rp-date-picker .DayPicker__withBorder {
+  box-shadow: none;
+  border: none;
+}
+
+/* Month caption */
+.rp-date-picker .CalendarMonth_caption {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--rp-black);
+  padding-top: 1.25rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Weekday headers */
+.rp-date-picker .DayPicker_weekHeader {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Day cells */
+.rp-date-picker .CalendarDay__default {
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--rp-black);
+  background: transparent;
+  transition: all 0.15s ease;
+}
+
+.rp-date-picker .CalendarDay__default:hover {
+  background: var(--rp-sky);
+  border: none;
+  color: var(--rp-black);
+}
+
+/* Selected days */
+.rp-date-picker .CalendarDay__selected,
+.rp-date-picker .CalendarDay__selected:active,
+.rp-date-picker .CalendarDay__selected:hover {
+  background: var(--rp-sky);
+  border: none;
+  color: var(--rp-black);
+}
+
+.rp-date-picker .CalendarDay__selected_span {
+  background: rgba(185, 217, 235, 0.5);
+  border: none;
+  color: var(--rp-black);
+}
+
+.rp-date-picker .CalendarDay__selected_span:active,
+.rp-date-picker .CalendarDay__selected_span:hover {
+  background: var(--rp-sky);
+  border: none;
+  color: var(--rp-black);
+}
+
+.rp-date-picker .CalendarDay__hovered_span,
+.rp-date-picker .CalendarDay__hovered_span:hover,
+.rp-date-picker .CalendarDay__hovered_span:active {
+  background: rgba(185, 217, 235, 0.5);
+  border: none;
+  color: var(--rp-black);
+}
+
+.rp-date-picker .CalendarDay__after_hovered_start,
+.rp-date-picker .CalendarDay__after_hovered_start:hover {
+  background: rgba(185, 217, 235, 0.3);
+  border: none;
+  color: var(--rp-black);
+}
+
+/* Blocked/disabled days */
+.rp-date-picker .CalendarDay__blocked_out_of_range,
+.rp-date-picker .CalendarDay__blocked_out_of_range:active,
+.rp-date-picker .CalendarDay__blocked_out_of_range:hover {
+  background: transparent;
+  border: none;
+  color: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+}
+
+/* Navigation arrows */
+.rp-date-picker .DayPickerNavigation_button__default {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 0.375rem;
+  transition: all 0.15s ease;
+}
+
+.rp-date-picker .DayPickerNavigation_button__default:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.rp-date-picker .DayPickerNavigation_svg__horizontal {
+  fill: var(--rp-black);
+}
+
+/* Focus states */
+.rp-date-picker .DateRangePickerInput:focus-within {
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
+}

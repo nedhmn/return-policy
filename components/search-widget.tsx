@@ -1,11 +1,14 @@
 "use client";
 
-import { format } from "date-fns";
-import { ChevronDownIcon, XIcon } from "lucide-react";
+import { ChevronDownIcon, MinusIcon, PlusIcon, XIcon } from "lucide-react";
+import type { Moment } from "moment";
+import moment from "moment";
 import { useState } from "react";
-import type { DateRange } from "react-day-picker";
+import "react-dates/initialize";
+import type { FocusedInputShape } from "react-dates";
+import { DateRangePicker } from "react-dates";
+import "react-dates/lib/css/_datepicker.css";
 
-import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
@@ -23,24 +26,15 @@ const DESTINATIONS = [
 
 type Destination = (typeof DESTINATIONS)[number];
 
-function getDefaultDateRange(): DateRange {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const tomorrow = new Date(today);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  return { from: today, to: tomorrow };
-}
-
 export function SearchWidget() {
   const [destination, setDestination] = useState<Destination | null>(null);
   const [guests, setGuests] = useState(1);
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(
-    getDefaultDateRange
+  const [startDate, setStartDate] = useState<Moment | null>(null);
+  const [endDate, setEndDate] = useState<Moment | null>(null);
+  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(
+    null
   );
-  const [calendarOpen, setCalendarOpen] = useState(false);
   const [destinationOpen, setDestinationOpen] = useState(false);
-
-  const [guestsOpen, setGuestsOpen] = useState(false);
 
   const handleSearch = () => {
     const params = new URLSearchParams();
@@ -50,12 +44,12 @@ export function SearchWidget() {
       params.set("country", destination.country);
     }
     params.set("minOccupancy", guests.toString());
-    if (dateRange?.from) {
-      params.set("checkIn", format(dateRange.from, "yyyy-MM-dd"));
-    }
-    if (dateRange?.to) {
-      params.set("checkOut", format(dateRange.to, "yyyy-MM-dd"));
-    }
+
+    // Use selected dates or default to today/tomorrow
+    const checkIn = startDate || moment();
+    const checkOut = endDate || moment().add(1, "day");
+    params.set("checkIn", checkIn.format("YYYY-MM-DD"));
+    params.set("checkOut", checkOut.format("YYYY-MM-DD"));
 
     window.open(
       `https://book.returnpolicystays.com/en/properties?${params}`,
@@ -75,21 +69,29 @@ export function SearchWidget() {
         >
           {/* Destination */}
           <div className="flex flex-col gap-2">
-            <div className="font-medium text-base text-rp-black tracking-[-0.02em]">
-              Destination
-            </div>
             <Popover onOpenChange={setDestinationOpen} open={destinationOpen}>
-              <PopoverTrigger asChild>
+              <div className="relative">
+                <PopoverTrigger asChild>
+                  <button
+                    className={`flex w-full cursor-pointer items-center justify-between rounded-[0.75rem] border-2 border-rp-black/10 px-4 py-3 pr-16 text-left font-normal text-base text-rp-black leading-[1.15] tracking-[-0.02em] transition-all placeholder:text-rp-black/40 hover:bg-rp-black/5 focus:border-rp-black/20 focus:outline-none focus:ring-0 md:px-5 md:py-4 md:pr-16 md:text-lg ${destinationOpen ? "border-rp-black/20 bg-rp-black/5" : "bg-rp-black/[0.02]"}`}
+                    type="button"
+                  >
+                    <span className={destination ? "" : "text-rp-black/40"}>
+                      {destination ? destination.city : "Select a city"}
+                    </span>
+                    <ChevronDownIcon className="absolute right-4 h-5 w-5 shrink-0 text-rp-black/40 md:right-5" />
+                  </button>
+                </PopoverTrigger>
                 <button
-                  className={`flex w-full cursor-pointer items-center justify-between rounded-xl border-2 border-rp-black/10 px-4 py-3 text-left font-normal text-base text-rp-black leading-[1.15] tracking-[-0.02em] transition-all placeholder:text-rp-black/40 hover:bg-rp-black/5 focus:border-rp-black/20 focus:outline-none focus:ring-0 md:px-5 md:py-4 md:text-lg ${destinationOpen ? "border-rp-black/20 bg-rp-black/5" : "bg-rp-black/[0.02]"}`}
+                  aria-label="Clear destination"
+                  className={`-translate-y-1/2 absolute top-1/2 right-10 mr-[5px] h-5 w-5 cursor-pointer rounded-full bg-white p-0 transition-colors hover:bg-rp-black/5 md:right-11 ${destination ? "visible opacity-100" : "pointer-events-none invisible opacity-0"}`}
+                  onClick={() => setDestination(null)}
+                  tabIndex={destination ? 0 : -1}
                   type="button"
                 >
-                  <span className={destination ? "" : "text-rp-black/40"}>
-                    {destination ? destination.city : "Select a city"}
-                  </span>
-                  <ChevronDownIcon className="h-5 w-5 text-rp-black/40" />
+                  <XIcon className="h-full w-full text-rp-black/40" />
                 </button>
-              </PopoverTrigger>
+              </div>
               <PopoverContent
                 align="start"
                 className="w-[var(--radix-popover-trigger-width)] rounded-xl border border-rp-black/10 bg-white p-2"
@@ -115,107 +117,58 @@ export function SearchWidget() {
 
           {/* Date Range */}
           <div className="flex flex-col gap-2">
-            <div className="font-medium text-base text-rp-black tracking-[-0.02em]">
-              Check-in / Check-out
+            <div className="rp-date-picker">
+              <DateRangePicker
+                block
+                displayFormat="MMM D, YYYY"
+                endDate={endDate}
+                endDateId="checkout"
+                endDatePlaceholderText="Check-out"
+                focusedInput={focusedInput}
+                hideKeyboardShortcutsPanel
+                isOutsideRange={(day) => day.isBefore(moment(), "day")}
+                noBorder
+                numberOfMonths={1}
+                onDatesChange={({ startDate: newStart, endDate: newEnd }) => {
+                  setStartDate(newStart);
+                  setEndDate(newEnd);
+                }}
+                onFocusChange={(focused) => setFocusedInput(focused)}
+                readOnly
+                reopenPickerOnClearDates
+                showClearDates
+                startDate={startDate}
+                startDateId="checkin"
+                startDatePlaceholderText="Check-in"
+              />
             </div>
-            <Popover onOpenChange={setCalendarOpen} open={calendarOpen}>
-              <PopoverTrigger asChild>
-                <button
-                  className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-xl border-2 border-rp-black/10 px-4 py-3 text-left font-normal text-base text-rp-black leading-[1.15] tracking-[-0.02em] transition-all hover:bg-rp-black/5 focus:border-rp-black/20 focus:outline-none focus:ring-0 md:px-5 md:py-4 md:text-lg ${calendarOpen ? "border-rp-black/20 bg-rp-black/5" : "bg-rp-black/[0.02]"}`}
-                  type="button"
-                >
-                  <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
-                    {dateRange?.from ? (
-                      <>
-                        {format(dateRange.from, "MMM d, yyyy")}
-                        <span className="mx-2 text-rp-black/40">→</span>
-                        {dateRange.to
-                          ? format(dateRange.to, "MMM d, yyyy")
-                          : "Select"}
-                      </>
-                    ) : (
-                      <span className="text-rp-black/40">Select dates</span>
-                    )}
-                  </span>
-                  {dateRange?.from && (
-                    // biome-ignore lint/a11y/useSemanticElements: Cannot use button element as it would be nested inside PopoverTrigger button
-                    <div
-                      className="shrink-0 cursor-pointer rounded-full p-1 transition-colors hover:bg-rp-black/10"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setDateRange(undefined);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          setDateRange(undefined);
-                        }
-                      }}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <XIcon className="h-4 w-4 text-rp-black/60" />
-                    </div>
-                  )}
-                </button>
-              </PopoverTrigger>
-              <PopoverContent
-                align="start"
-                className="w-auto rounded-xl border border-rp-black/10 bg-white p-0"
-                sideOffset={8}
-              >
-                <div className="p-4">
-                  <Calendar
-                    className="border-0"
-                    disabled={{ before: new Date() }}
-                    mode="range"
-                    numberOfMonths={2}
-                    onSelect={setDateRange}
-                    selected={dateRange}
-                    showOutsideDays={false}
-                  />
-                </div>
-              </PopoverContent>
-            </Popover>
           </div>
 
           {/* Guests */}
           <div className="flex flex-col gap-2">
-            <div className="font-medium text-base text-rp-black tracking-[-0.02em]">
-              Minimum Guests
-            </div>
-            <Popover onOpenChange={setGuestsOpen} open={guestsOpen}>
-              <PopoverTrigger asChild>
-                <button
-                  className={`flex w-full cursor-pointer items-center justify-between rounded-xl border-2 border-rp-black/10 px-4 py-3 text-left font-normal text-base text-rp-black leading-[1.15] tracking-[-0.02em] transition-all hover:bg-rp-black/5 focus:border-rp-black/20 focus:outline-none focus:ring-0 md:px-5 md:py-4 md:text-lg ${guestsOpen ? "border-rp-black/20 bg-rp-black/5" : "bg-rp-black/[0.02]"}`}
-                  type="button"
-                >
-                  <span>{guests}+ guests</span>
-                  <ChevronDownIcon className="h-5 w-5 text-rp-black/40" />
-                </button>
-              </PopoverTrigger>
-              <PopoverContent
-                align="start"
-                className="w-[var(--radix-popover-trigger-width)] rounded-xl border border-rp-black/10 bg-white p-2"
+            <div className="flex w-full items-center justify-between rounded-[0.75rem] border-2 border-rp-black/10 bg-rp-black/[0.02] px-4 py-3 md:px-5 md:py-4">
+              <button
+                aria-label="Decrease guests"
+                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-rp-black/10 bg-white transition-colors hover:bg-rp-black/5 disabled:cursor-not-allowed disabled:opacity-40"
+                disabled={guests <= 1}
+                onClick={() => setGuests((g) => Math.max(1, g - 1))}
+                type="button"
               >
-                <div className="flex max-h-64 flex-col overflow-y-auto">
-                  {Array.from({ length: 12 }, (_, i) => i + 1).map((num) => (
-                    <button
-                      className="cursor-pointer rounded-lg px-4 py-3 text-left font-normal text-base text-rp-black tracking-[-0.02em] transition-colors hover:bg-rp-black/5"
-                      key={num}
-                      onClick={() => {
-                        setGuests(num);
-                        setGuestsOpen(false);
-                      }}
-                      type="button"
-                    >
-                      {num}+
-                    </button>
-                  ))}
-                </div>
-              </PopoverContent>
-            </Popover>
+                <MinusIcon className="h-4 w-4 text-rp-black" />
+              </button>
+              <span className="font-normal text-base text-rp-black leading-[1.15] tracking-[-0.02em] md:text-lg">
+                {guests}+ guests
+              </span>
+              <button
+                aria-label="Increase guests"
+                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-rp-black/10 bg-white transition-colors hover:bg-rp-black/5 disabled:cursor-not-allowed disabled:opacity-40"
+                disabled={guests >= 15}
+                onClick={() => setGuests((g) => Math.min(15, g + 1))}
+                type="button"
+              >
+                <PlusIcon className="h-4 w-4 text-rp-black" />
+              </button>
+            </div>
           </div>
 
           {/* Search Button */}
