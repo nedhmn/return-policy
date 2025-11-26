@@ -20,8 +20,8 @@ const platforms = [
   { name: "Stayz", logo: "/platforms/stayz-white.svg", size: "normal" },
   {
     name: "Capital One",
-    logo: "/platforms/capital-one-white.svg",
-    size: "xlarge",
+    logo: "/platforms/capital-one-travel-white.svg",
+    size: "normal",
   },
   { name: "Hopper", logo: "/platforms/hopper-white.svg", size: "normal" },
   { name: "Livily", logo: "/platforms/livily-white.svg", size: "normal" },
