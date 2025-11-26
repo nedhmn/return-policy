@@ -14,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { siteConfig } from "@/lib/config";
 
 const DESTINATIONS = [
   { city: "Etobicoke", country: "Canada" },
@@ -52,7 +53,7 @@ export function SearchWidget() {
     params.set("checkOut", checkOut.format("YYYY-MM-DD"));
 
     window.open(
-      `https://book.returnpolicystays.com/en/properties?${params}`,
+      `https://${siteConfig.bookingDomain}/en/properties?${params}`,
       "_blank"
     );
   };

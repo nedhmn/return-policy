@@ -3,6 +3,7 @@ export type SiteConfig = {
   title: string;
   description: string;
   domain: string;
+  bookingDomain: string;
   url: string;
   foundedYear: number;
 
@@ -44,13 +45,16 @@ export const siteConfig: SiteConfig = {
   description:
     "Every departure, just another beginning. Short-term stays designed to feel less like rentals and more like residences.",
   domain: "returnpolicystays.com",
+  bookingDomain: "book.returnpolicystays.com",
   url: "https://returnpolicystays.com",
   foundedYear: 2018,
 
   contact: {
     email: "help@returnpolicystays.com",
-    phone: "+1 (416) 554-3272",
-    phoneRaw: "+14165543272",
+    // phone: "+1 (416) 554-3272",
+    // phoneRaw: "+14165543272",
+    phone: "+1 (778) 742-5675",
+    phoneRaw: "+17787425675",
     address: {
       street: "639 Queen St W",
       suite: "Suite 501",
