@@ -9,10 +9,9 @@ const resend = new Resend(env.RESEND_API_KEY);
 export async function submitPartnerContact(data: {
   name: string;
   email: string;
-  phone: string;
 }) {
   try {
-    const { name, email, phone } = data;
+    const { name, email } = data;
 
     await resend.emails.send({
       from: siteConfig.email.from,
@@ -29,14 +28,9 @@ export async function submitPartnerContact(data: {
               <div style="font-size: 16px; color: #1a1a1a;">${name}</div>
             </div>
 
-            <div style="margin-bottom: 16px;">
+            <div style="margin-bottom: 0;">
               <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 4px;">Email</div>
               <div style="font-size: 16px;"><a href="mailto:${email}" style="color: #1a1a1a;">${email}</a></div>
-            </div>
-
-            <div style="margin-bottom: 0;">
-              <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 4px;">Phone</div>
-              <div style="font-size: 16px;"><a href="tel:${phone}" style="color: #1a1a1a;">${phone}</a></div>
             </div>
           </div>
         </div>

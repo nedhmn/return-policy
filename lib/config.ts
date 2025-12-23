@@ -1,4 +1,4 @@
-export type SiteConfig = {
+export interface SiteConfig {
   name: string;
   title: string;
   description: string;
@@ -37,7 +37,7 @@ export type SiteConfig = {
     avgRating: { value: number; suffix: string };
     countries: number;
   };
-};
+}
 
 export const siteConfig: SiteConfig = {
   name: "Return Policy",

@@ -9,7 +9,6 @@ export function PartnerForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
@@ -25,7 +24,7 @@ export function PartnerForm() {
       const result = await submitPartnerContact(formData);
       if (result.success) {
         setSubmitStatus("success");
-        setFormData({ name: "", email: "", phone: "" });
+        setFormData({ name: "", email: "" });
       } else {
         setSubmitStatus("error");
       }
@@ -118,26 +117,6 @@ export function PartnerForm() {
                     required
                     type="email"
                     value={formData.email}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label
-                    className="font-medium text-rp-black text-sm tracking-[-0.02em]"
-                    htmlFor="phone"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    className="rounded-xl border-2 border-rp-black bg-white px-4 py-3 font-normal text-base text-rp-black leading-[1.15] tracking-[-0.02em] transition-all placeholder:text-rp-black/40 focus:border-rp-blue focus:outline-none focus:ring-2 focus:ring-rp-blue md:px-5 md:py-4 md:text-lg"
-                    id="phone"
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                    placeholder="+1 (555) 000-0000"
-                    required
-                    type="tel"
-                    value={formData.phone}
                   />
                 </div>
 

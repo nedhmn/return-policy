@@ -85,7 +85,7 @@ export function SearchWidget() {
                 </PopoverTrigger>
                 <button
                   aria-label="Clear destination"
-                  className={`-translate-y-1/2 absolute top-1/2 right-10 mr-[5px] h-5 w-5 cursor-pointer rounded-full bg-white p-0 transition-colors hover:bg-rp-black/5 md:right-11 ${destination ? "visible opacity-100" : "pointer-events-none invisible opacity-0"}`}
+                  className={`absolute top-1/2 right-10 mr-[5px] h-5 w-5 -translate-y-1/2 cursor-pointer rounded-full bg-white p-0 transition-colors hover:bg-rp-black/5 md:right-11 ${destination ? "visible opacity-100" : "pointer-events-none invisible opacity-0"}`}
                   onClick={() => setDestination(null)}
                   tabIndex={destination ? 0 : -1}
                   type="button"

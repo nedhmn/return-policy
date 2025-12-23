@@ -321,6 +321,149 @@ export default function TermsPage() {
             </div>
           </section>
 
+          {/* SMS Terms */}
+          <section>
+            <h2 className="mb-6 font-medium font-sans text-2xl text-rp-ivory leading-[0.96] tracking-[-0.04em] md:text-4xl">
+              SMS Terms
+            </h2>
+            <div className="space-y-6 text-base md:text-lg">
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  SMS Consent Communication
+                </h3>
+                <p>
+                  The information (Phone Numbers) obtained as part of the SMS
+                  consent process will not be shared with third parties for
+                  marketing purposes.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Types of SMS Communications
+                </h3>
+                <p className="mb-4">
+                  If you have consented to receive text messages from Return
+                  Policy, you may receive messages related to:
+                </p>
+                <ul className="mb-4 ml-4 list-inside list-disc space-y-2">
+                  <li>Verification codes for worker authentication</li>
+                  <li>Account security notifications</li>
+                </ul>
+                <p>
+                  Example: "Your Return Policy verification code is [CODE]. Do
+                  not share this code with anyone."
+                </p>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Message Frequency
+                </h3>
+                <p>
+                  Message frequency may vary. You may receive SMS messages when
+                  verification is required for account access or security
+                  purposes.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Potential Fees for SMS Messaging
+                </h3>
+                <p>
+                  Standard message and data rates may apply, depending on your
+                  carrier's pricing plan. These fees may vary if the message is
+                  sent domestically or internationally.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Opt-In Method
+                </h3>
+                <p className="mb-4">
+                  You may opt in to receive SMS messages from Return Policy in
+                  the following ways:
+                </p>
+                <ul className="ml-4 list-inside list-disc space-y-2">
+                  <li>
+                    Providing your phone number during account registration
+                  </li>
+                  <li>Enabling SMS verification in your account settings</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Opt-Out Method
+                </h3>
+                <p>
+                  You can opt out of receiving SMS messages at any time by
+                  replying "STOP" to any SMS message you receive. Alternatively,
+                  you can contact us directly at{" "}
+                  <a
+                    className="text-rp-yellow hover:underline"
+                    href="mailto:help@returnpolicystays.com"
+                  >
+                    help@returnpolicystays.com
+                  </a>{" "}
+                  to request removal from our messaging list.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Help
+                </h3>
+                <p>
+                  If you are experiencing any issues, you can reply with the
+                  keyword "HELP" to any message. Or, you can get help directly
+                  from us at{" "}
+                  <a
+                    className="text-rp-yellow hover:underline"
+                    href="tel:+17787425675"
+                  >
+                    +1 (778) 742-5675
+                  </a>{" "}
+                  or{" "}
+                  <a
+                    className="text-rp-yellow hover:underline"
+                    href="mailto:help@returnpolicystays.com"
+                  >
+                    help@returnpolicystays.com
+                  </a>
+                  .
+                </p>
+              </div>
+
+              <div>
+                <h3 className="mb-4 font-medium font-sans text-rp-ivory text-xl leading-[0.96] tracking-[-0.04em] md:text-2xl">
+                  Standard Messaging Disclosures
+                </h3>
+                <ul className="ml-4 list-inside list-disc space-y-2">
+                  <li>Message and data rates may apply</li>
+                  <li>You can opt out at any time by texting "STOP"</li>
+                  <li>
+                    For assistance, text "HELP" or visit our{" "}
+                    <a
+                      className="text-rp-yellow hover:underline"
+                      href="/privacy"
+                    >
+                      Privacy Policy
+                    </a>{" "}
+                    and{" "}
+                    <a className="text-rp-yellow hover:underline" href="/terms">
+                      Terms and Conditions
+                    </a>{" "}
+                    pages
+                  </li>
+                  <li>Message frequency may vary</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           {/* Contact Us */}
           <section>
             <h2 className="mb-6 font-medium font-sans text-2xl text-rp-ivory leading-[0.96] tracking-[-0.04em] md:text-4xl">

@@ -108,6 +108,18 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
+          {/* SMS Communication */}
+          <section>
+            <h2 className="mb-6 font-medium font-sans text-2xl text-rp-ivory leading-[0.96] tracking-[-0.04em] md:text-4xl">
+              SMS Communication
+            </h2>
+            <p className="text-base md:text-lg">
+              Mobile Opt-in, SMS Consent, and phone numbers collected for SMS
+              communication purposes will not be shared with any third party or
+              affiliates for marketing purposes.
+            </p>
+          </section>
+
           {/* User Rights */}
           <section>
             <h2 className="mb-6 font-medium font-sans text-2xl text-rp-ivory leading-[0.96] tracking-[-0.04em] md:text-4xl">
@@ -296,9 +308,9 @@ export default function PrivacyPage() {
               Children's privacy
             </h2>
             <p className="text-base md:text-lg">
-              This service is for people 16 years of age or older. We do not
+              This service is for people 18 years of age or older. We do not
               knowingly or intentionally collect information about children who
-              are under 16 years of age.
+              are under 18 years of age.
             </p>
           </section>
 
