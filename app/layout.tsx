@@ -1,5 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 // Replace Geist fonts with Inter for Return Policy brand
 import { Inter } from "next/font/google";
 import type React from "react";
@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: siteConfig.title,
   description: siteConfig.description,
+};
+
+export const viewport: Viewport = {
   themeColor: "#000000",
 };
 
